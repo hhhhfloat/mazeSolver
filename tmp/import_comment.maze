@@ -1,0 +1,14 @@
+# MazeSolver Board v1
+# 这一行是注释（# 后有空白）
+size 3 3
+start 0 1
+end 2 1
+walls
+# 段中间也允许出现注释
+5f5
+5f5
+5f5
+scores
+#..
+...
+..#

@@ -1,0 +1,1625 @@
+{
+  "pom.xml" : [ {
+    "id" : "pom_intro",
+    "line" : 2,
+    "desc" : "Maven 构建描述：Java 17 + JavaFX 17，构建产物统一收敛到 tmp/ 下，保持项目根目录干净"
+  }, {
+    "id" : "pom_build",
+    "line" : 37,
+    "desc" : "构建输出目录重定向到 tmp/target，避免污染项目根目录"
+  }, {
+    "id" : "pom_build_end",
+    "line" : 59,
+    "desc" : ""
+  } ],
+  "PROJECT.md" : [ {
+    "id" : "project_intro",
+    "line" : 1,
+    "desc" : "项目定位与跨文件约定的语义级说明；具体实现细节见各源码文件锚点描述"
+  }, {
+    "id" : "project_positioning",
+    "line" : 6,
+    "desc" : "一句话定位：做什么、给谁用、哪些能力属于核心"
+  }, {
+    "id" : "project_positioning_end",
+    "line" : 10,
+    "desc" : ""
+  }, {
+    "id" : "project_architecture",
+    "line" : 12,
+    "desc" : "# 架构决策"
+  }, {
+    "id" : "project_architecture_end",
+    "line" : 36,
+    "desc" : ""
+  }, {
+    "id" : "project_conventions",
+    "line" : 38,
+    "desc" : "跨文件约定：格式、区间、等价语义——改动时必须同步遵守的最小契约集合"
+  }, {
+    "id" : "project_conventions_end",
+    "line" : 56,
+    "desc" : ""
+  }, {
+    "id" : "project_build",
+    "line" : 58,
+    "desc" : "# 构建与运行"
+  }, {
+    "id" : "project_build_end",
+    "line" : 76,
+    "desc" : ""
+  }, {
+    "id" : "project_collaboration",
+    "line" : 78,
+    "desc" : "协作约定：锚点写法与文档维护规则"
+  }, {
+    "id" : "project_collaboration_end",
+    "line" : 83,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/FileDialogs.java" : [ {
+    "id" : "file_dialogs_intro",
+    "line" : 1,
+    "desc" : "文件选择入口：盘面保存 / 盘面载入 / 枚举结果导出三类对话框，统一默认目录 tmp/ 与扩展名过滤。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "dialog_dir",
+    "line" : 19,
+    "desc" : "对话框默认目录：与枚举结果自动输出位置保持一致，产物统一落在 tmp/ 下",
+    "symbol" : "initialDir"
+  }, {
+    "id" : "dialog_dir_end",
+    "line" : 29,
+    "desc" : "",
+    "symbol" : "chooseSaveBoard"
+  }, {
+    "id" : "dialog_board",
+    "line" : 31,
+    "desc" : "盘面存取的对话框：只允许 MazeIO.BOARD_EXTENSION 一种扩展名，避免存成无法再载入的文件",
+    "symbol" : "chooseSaveBoard"
+  }, {
+    "id" : "dialog_board_end",
+    "line" : 57,
+    "desc" : "",
+    "symbol" : "chooseExportPaths"
+  }, {
+    "id" : "dialog_paths",
+    "line" : 59,
+    "desc" : "枚举结果导出的对话框：与自动输出的 tmp/all_paths.txt 同格式，只是换成用户指定位置",
+    "symbol" : "chooseExportPaths"
+  }, {
+    "id" : "dialog_paths_end",
+    "line" : 71,
+    "desc" : "",
+    "symbol" : "ensureParentDir"
+  }, {
+    "id" : "dialog_util",
+    "line" : 73,
+    "desc" : "写文件前的兜底：目标父目录不存在就创建，避免\"路径不可写\"掩盖真正原因",
+    "symbol" : "ensureParentDir"
+  }, {
+    "id" : "dialog_util_end",
+    "line" : 80,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/InputParse.java" : [ {
+    "id" : "input_parse_intro",
+    "line" : 1,
+    "desc" : "数值输入解析：把\"输入框文本 + 合法区间\"统一折算成值或 null，界面各处不再各写一遍 try/catch。",
+    "symbol" : "inRange"
+  }, {
+    "id" : "input_parse_range",
+    "line" : 11,
+    "desc" : "区间校验：非整数、超出 [min,max] 一律返回 null，调用方据此走\"红字提示 + 回落默认值\"",
+    "symbol" : "inRange"
+  }, {
+    "id" : "input_parse_range_end",
+    "line" : 23,
+    "desc" : "",
+    "symbol" : "lowerBound"
+  }, {
+    "id" : "input_parse_bounds",
+    "line" : 25,
+    "desc" : "过滤上下界：留空或非法都等于\"不设限\"，因此下界回落 0、上界回落 MAX_VALUE",
+    "symbol" : "lowerBound"
+  }, {
+    "id" : "input_parse_bounds_end",
+    "line" : 38,
+    "desc" : "",
+    "symbol" : "<init>"
+  } ],
+  "src/main/java/com/mazesolver/MazeApp.java" : [ {
+    "id" : "app_intro",
+    "line" : 1,
+    "desc" : "JavaFX 主界面：装配顶部控制面板与画布容器，协调生成器/求解器/视图/盘面文件，并持有编辑模式与枚举结果的唯一状态。",
+    "symbol" : "start"
+  }, {
+    "id" : "app_output_path",
+    "line" : 25,
+    "desc" : "枚举结果自动输出位置：与盘面保存/导出对话框的默认目录保持一致，产物统一落在 tmp/",
+    "symbol" : "start"
+  }, {
+    "id" : "app_output_path_end",
+    "line" : 29,
+    "desc" : "",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_shape",
+    "line" : 31,
+    "desc" : "尺寸状态：行列数是\"当前迷宫尺寸\"的唯一来源，输入框只在应用时读取；合法区间统一取自 MazeModel",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_shape_end",
+    "line" : 40,
+    "desc" : "",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_core",
+    "line" : 42,
+    "desc" : "核心协作者：模型、生成器、求解器、视图始终成组重建，避免尺寸不一致",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_core_end",
+    "line" : 49,
+    "desc" : "",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_ui",
+    "line" : 51,
+    "desc" : "界面装配：顶部控制面板、右侧列表面板、根布局与中间可滚动画布容器",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_ui_end",
+    "line" : 58,
+    "desc" : "",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_result",
+    "line" : 60,
+    "desc" : "枚举结果：方向编码源数据；展示与过滤都在 PathListPanel 内完成，这里只持有引用",
+    "symbol" : "start"
+  }, {
+    "id" : "app_fields_result_end",
+    "line" : 63,
+    "desc" : "",
+    "symbol" : "start"
+  }, {
+    "id" : "app_edit_mode_state",
+    "line" : 65,
+    "desc" : "编辑模式唯一状态：四个编辑开关互斥，editMode 是唯一真值来源，按钮选中态由 applyEditMode 反向同步",
+    "symbol" : "start"
+  }, {
+    "id" : "app_edit_mode_state_end",
+    "line" : 72,
+    "desc" : "",
+    "symbol" : "start"
+  }, {
+    "id" : "app_start",
+    "line" : 74,
+    "desc" : "应用入口：记下窗口引用后交给 buildUI 完成全部装配",
+    "symbol" : "start"
+  }, {
+    "id" : "app_start_end",
+    "line" : 81,
+    "desc" : "",
+    "symbol" : "buildUI"
+  }, {
+    "id" : "app_build_ui",
+    "line" : 83,
+    "desc" : "装配顺序：核心对象 → 列表面板与顶部面板 → 画布滚动画布容器 → 绑定事件 → 挂画布 → 建窗口 → 首屏状态回显",
+    "symbol" : "buildUI"
+  }, {
+    "id" : "app_build_ui_end",
+    "line" : 132,
+    "desc" : "",
+    "symbol" : "initCore"
+  }, {
+    "id" : "app_init_core",
+    "line" : 134,
+    "desc" : "核心对象成组创建并首次生成迷宫；尺寸变更时同样按此顺序整体重建",
+    "symbol" : "initCore"
+  }, {
+    "id" : "app_init_core_end",
+    "line" : 144,
+    "desc" : "",
+    "symbol" : "wireActions"
+  }, {
+    "id" : "app_wire_actions",
+    "line" : 146,
+    "desc" : "事件绑定集中在一处：面板只建控件，动作与状态同步都在主界面，避免\"控件建了没接线\"",
+    "symbol" : "wireActions"
+  }, {
+    "id" : "app_wire_actions_end",
+    "line" : 190,
+    "desc" : "",
+    "symbol" : "onGenerate"
+  }, {
+    "id" : "app_generate_action",
+    "line" : 192,
+    "desc" : "生成：重新开一条随机迷宫，旧路径列表同时作废",
+    "symbol" : "onGenerate"
+  }, {
+    "id" : "app_generate_action_end",
+    "line" : 200,
+    "desc" : "",
+    "symbol" : "onSolve"
+  }, {
+    "id" : "app_solve_action",
+    "line" : 202,
+    "desc" : "求解：BFS 结果直接上屏；再按上限枚举全部路径，枚举结果自动写入 tmp/ 并填充右侧列表",
+    "symbol" : "onSolve"
+  }, {
+    "id" : "app_solve_action_end",
+    "line" : 230,
+    "desc" : "",
+    "symbol" : "onReset"
+  }, {
+    "id" : "app_reset_action",
+    "line" : 232,
+    "desc" : "重置：只清除当前显示的解法与列表，迷宫本身保持不变",
+    "symbol" : "onReset"
+  }, {
+    "id" : "app_reset_action_end",
+    "line" : 239,
+    "desc" : "",
+    "symbol" : "onClear"
+  }, {
+    "id" : "app_clear_action",
+    "line" : 241,
+    "desc" : "清空：去掉全部内部墙壁与得分点，等于回到\"空旷画布\"",
+    "symbol" : "onClear"
+  }, {
+    "id" : "app_clear_action_end",
+    "line" : 250,
+    "desc" : "",
+    "symbol" : "toggleEditMode"
+  }, {
+    "id" : "app_edit_mode_apply",
+    "line" : 252,
+    "desc" : "模式切换总入口：点已选中的开关视为退出；按钮选中态、视图编辑模式、生成/求解可用性集中同步",
+    "symbol" : "toggleEditMode"
+  }, {
+    "id" : "app_edit_mode_apply_end",
+    "line" : 283,
+    "desc" : "",
+    "symbol" : "mountCanvas"
+  }, {
+    "id" : "app_mount_canvas",
+    "line" : 285,
+    "desc" : "画布挂载：把（可能已重建的）画布放进中间容器；容器尺寸不变，因此无需重建 ScrollPane",
+    "symbol" : "mountCanvas"
+  }, {
+    "id" : "app_mount_canvas_end",
+    "line" : 293,
+    "desc" : "",
+    "symbol" : "refreshEndpointHint"
+  }, {
+    "id" : "app_endpoint_hint",
+    "line" : 295,
+    "desc" : "起终点回显：坐标唯一来源是模型，页面只负责展示；编辑模式下顺带提示\"接下来该点哪里\"",
+    "symbol" : "refreshEndpointHint"
+  }, {
+    "id" : "app_endpoint_hint_end",
+    "line" : 316,
+    "desc" : "",
+    "symbol" : "resetEndpointsAndRefresh"
+  }, {
+    "id" : "app_endpoint_reset",
+    "line" : 318,
+    "desc" : "起终点复位：坐标交回模型 resetEndpoints，视图与路径列表同步作废，避免页面留着失效解法",
+    "symbol" : "resetEndpointsAndRefresh"
+  }, {
+    "id" : "app_endpoint_reset_end",
+    "line" : 328,
+    "desc" : "",
+    "symbol" : "saveBoardToFile"
+  }, {
+    "id" : "app_board_save",
+    "line" : 330,
+    "desc" : "保存盘面：尺寸/起终点/墙壁/得分点整盘落文件；对话框默认打开 tmp/ 并给出可读的默认文件名",
+    "symbol" : "saveBoardToFile"
+  }, {
+    "id" : "app_board_save_end",
+    "line" : 345,
+    "desc" : "",
+    "symbol" : "loadBoardFromFile"
+  }, {
+    "id" : "app_board_load",
+    "line" : 347,
+    "desc" : "载入盘面：文件内容整体替换当前盘面；解析失败只在状态栏提示，不破坏现有迷宫",
+    "symbol" : "loadBoardFromFile"
+  }, {
+    "id" : "app_board_load_end",
+    "line" : 363,
+    "desc" : "",
+    "symbol" : "applyLoadedBoard"
+  }, {
+    "id" : "app_apply_board",
+    "line" : 365,
+    "desc" : "盘面替换：尺寸与内容都以载入的模型为准，rows/cols 缓存、画布与核心协作者必须一起重建",
+    "symbol" : "applyLoadedBoard"
+  }, {
+    "id" : "app_apply_board_end",
+    "line" : 390,
+    "desc" : "",
+    "symbol" : "exportPathsToFile"
+  }, {
+    "id" : "app_export_paths",
+    "line" : 392,
+    "desc" : "导出解法：把当前枚举结果另存到用户选择的文件，格式与自动输出到 tmp/ 的完全一致",
+    "symbol" : "exportPathsToFile"
+  }, {
+    "id" : "app_export_paths_end",
+    "line" : 409,
+    "desc" : "",
+    "symbol" : "currentEnumLimit"
+  }, {
+    "id" : "app_enum_limit",
+    "line" : 411,
+    "desc" : "枚举上限：输入框是唯一入口，非法输入当场红字提示并回落到默认上限，绝不静默改变搜索规模",
+    "symbol" : "currentEnumLimit"
+  }, {
+    "id" : "app_enum_limit_end",
+    "line" : 426,
+    "desc" : "",
+    "symbol" : "refreshEnumHint"
+  }, {
+    "id" : "app_enum_hint",
+    "line" : 428,
+    "desc" : "枚举状态回显：条数 / 上限 / 是否达上限 / 输出文件，数值全部取自求解器，页面不另存副本",
+    "symbol" : "refreshEnumHint"
+  }, {
+    "id" : "app_enum_hint_end",
+    "line" : 445,
+    "desc" : "",
+    "symbol" : "applySampleOverlay"
+  }, {
+    "id" : "app_sample_overlay",
+    "line" : 447,
+    "desc" : "抽样叠画：枚举结果只抽若干条交给视图叠画；条数非法只提示并回落默认值，绝不改变枚举规模",
+    "symbol" : "applySampleOverlay"
+  }, {
+    "id" : "app_sample_overlay_end",
+    "line" : 504,
+    "desc" : "",
+    "symbol" : "showPathOnCanvas"
+  }, {
+    "id" : "app_path_select",
+    "line" : 506,
+    "desc" : "列表选中：把某条枚举路径坐标化后作为主解法显示；真实下标由面板负责映射",
+    "symbol" : "showPathOnCanvas"
+  }, {
+    "id" : "app_path_select_end",
+    "line" : 514,
+    "desc" : "",
+    "symbol" : "applyShapeChange"
+  }, {
+    "id" : "app_shape_apply",
+    "line" : 516,
+    "desc" : "应用新行列数：按模型常量校验 → 复位编辑态与列表 → 重建模型/求解器/画布 → 重新生成；非法输入只提示不回滚",
+    "symbol" : "applyShapeChange"
+  }, {
+    "id" : "app_shape_apply_end",
+    "line" : 555,
+    "desc" : "",
+    "symbol" : "updateStageTitle"
+  }, {
+    "id" : "app_update_title",
+    "line" : 557,
+    "desc" : "标题即时反映当前尺寸，便于确认尺寸应用是否生效",
+    "symbol" : "updateStageTitle"
+  }, {
+    "id" : "app_update_title_end",
+    "line" : 563,
+    "desc" : "",
+    "symbol" : "clearPathList"
+  }, {
+    "id" : "app_clear_list",
+    "line" : 565,
+    "desc" : "列表清空等同\"源数据作废\"：allPaths、列表内容与画布上的抽样叠画一并作废，枚举/抽样状态行同时刷新",
+    "symbol" : "clearPathList"
+  }, {
+    "id" : "app_clear_list_end",
+    "line" : 579,
+    "desc" : "",
+    "symbol" : "main"
+  }, {
+    "id" : "app_main",
+    "line" : 581,
+    "desc" : "标准 JavaFX 启动入口",
+    "symbol" : "main"
+  }, {
+    "id" : "app_main_end",
+    "line" : 586,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeControlPanel.java" : [ {
+    "id" : "maze_control_panel_intro",
+    "line" : 1,
+    "desc" : "顶部控制面板：尺寸栏 / 动作栏 / 编辑模式栏 / 枚举上限栏 / 状态栏五行控件的创建与布局，只搭结构、不绑业务动作。",
+    "symbol" : "buildScoreDigitOptions"
+  }, {
+    "id" : "panel_score_digits",
+    "line" : 25,
+    "desc" : "\"标记数字\"下拉的取值：区间统一取自模型常量，页面不再写死 1~9",
+    "symbol" : "buildScoreDigitOptions"
+  }, {
+    "id" : "panel_score_digits_end",
+    "line" : 37,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "panel_fields",
+    "line" : 39,
+    "desc" : "控件引用：尺寸 / 动作 / 编辑开关与标记数字 / 枚举上限 / 三个状态标签——主界面据此绑定事件与回写状态",
+    "symbol" : "<init>"
+  }, {
+    "id" : "panel_fields_end",
+    "line" : 71,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "panel_constructor",
+    "line" : 73,
+    "desc" : "构造即建好全部控件与布局；初始尺寸写入输入框，状态标签给出\"当前 N×M\"",
+    "symbol" : "<init>"
+  }, {
+    "id" : "panel_constructor_end",
+    "line" : 111,
+    "desc" : "",
+    "symbol" : "buildTopBar"
+  }, {
+    "id" : "panel_top_layout",
+    "line" : 113,
+    "desc" : "顶部五行：尺寸栏 / 动作栏 / 编辑模式栏 / 枚举上限栏 / 状态栏——每种后端能力都在页面上有入口",
+    "symbol" : "buildTopBar"
+  }, {
+    "id" : "panel_top_layout_end",
+    "line" : 158,
+    "desc" : "",
+    "symbol" : "getApplyShapeButton"
+  }, {
+    "id" : "panel_apply_shape_button",
+    "line" : 160,
+    "desc" : "\"应用\"按钮与其他控件一同在构造器中创建，主界面通过这里取到它绑定尺寸变更动作",
+    "symbol" : "getApplyShapeButton"
+  }, {
+    "id" : "panel_apply_shape_button_end",
+    "line" : 167,
+    "desc" : "",
+    "symbol" : "getTopBar"
+  }, {
+    "id" : "panel_accessors",
+    "line" : 169,
+    "desc" : "控件访问器：主界面绑定事件与回写状态都走这里，面板不暴露内部布局结构",
+    "symbol" : "getTopBar"
+  }, {
+    "id" : "panel_accessors_end",
+    "line" : 244,
+    "desc" : "",
+    "symbol" : "setShapeHint"
+  }, {
+    "id" : "panel_hints",
+    "line" : 246,
+    "desc" : "状态回显：尺寸 / 枚举 / 起终点 / 文件四条提示，配色统一走 UiHint，页面不缓存业务状态",
+    "symbol" : "setShapeHint"
+  }, {
+    "id" : "panel_hints_end",
+    "line" : 273,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeEditor.java" : [ {
+    "id" : "maze_editor_intro",
+    "line" : 1,
+    "desc" : "编辑执行体：把\"加/拆墙、落/清标记数字、拾取起终点\"落到模型上，锁定长按方向、同一目标只处理一次。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "editor_pick_mode",
+    "line" : 12,
+    "desc" : "起终点拾取模式：视图、主界面与渲染器共用这三个常量，避免各处写字面量",
+    "symbol" : "<init>"
+  }, {
+    "id" : "editor_pick_mode_end",
+    "line" : 20,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "editor_state",
+    "line" : 22,
+    "desc" : "编辑状态：模型引用、改动后的重绘通知，以及\"本次按下锁定的目标\"与\"上一个已处理目标\"",
+    "symbol" : "<init>"
+  }, {
+    "id" : "editor_state_end",
+    "line" : 49,
+    "desc" : "",
+    "symbol" : "beginWall"
+  }, {
+    "id" : "editor_wall",
+    "line" : 51,
+    "desc" : "墙壁编辑：按下时按\"有墙则拆、无墙则加\"锁定方向，拖拽期间沿该方向连续生效",
+    "symbol" : "beginWall"
+  }, {
+    "id" : "editor_wall_end",
+    "line" : 80,
+    "desc" : "",
+    "symbol" : "beginScore"
+  }, {
+    "id" : "editor_score",
+    "line" : 82,
+    "desc" : "得分点编辑：按下时锁定\"落子成哪个数字\"（已是该数字则锁定为清除），拖拽期间保持同一目标",
+    "symbol" : "beginScore"
+  }, {
+    "id" : "editor_score_end",
+    "line" : 116,
+    "desc" : "",
+    "symbol" : "applyEndpointAction"
+  }, {
+    "id" : "editor_endpoint",
+    "line" : 118,
+    "desc" : "起终点拾取：单击即定，越界或与另一端点重合（模型返回 false）时忽略",
+    "symbol" : "applyEndpointAction"
+  }, {
+    "id" : "editor_endpoint_end",
+    "line" : 130,
+    "desc" : "",
+    "symbol" : "reset"
+  }, {
+    "id" : "editor_reset",
+    "line" : 132,
+    "desc" : "复位：松开鼠标、移出画布、切换编辑模式时清空\"本次按下锁定\"与\"上一个已处理目标\"",
+    "symbol" : "reset"
+  }, {
+    "id" : "editor_reset_end",
+    "line" : 143,
+    "desc" : "",
+    "symbol" : "notifyChanged"
+  }, {
+    "id" : "editor_notify",
+    "line" : 145,
+    "desc" : "改动生效后的统一出口：作废既有解法、通知主界面清理失效结果并重绘（回调由视图注入）",
+    "symbol" : "notifyChanged"
+  }, {
+    "id" : "editor_notify_end",
+    "line" : 150,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeGenerator.java" : [ {
+    "id" : "generator_intro",
+    "line" : 1,
+    "desc" : "迷宫生成器：DFS 递归回溯生成完美迷宫（任意两点恰有一条通路），并按密度撒布得分点。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "generator_fields",
+    "line" : 13,
+    "desc" : "方向表带墙壁位掩码便于直接拆墙；得分点密度按总格数比例取 7%",
+    "symbol" : "<init>"
+  }, {
+    "id" : "generator_fields_end",
+    "line" : 29,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "generator_generate",
+    "line" : 38,
+    "desc" : "生成入口：重置为全墙 → 从 (0,0) 起 DFS 打通 → 清空并按密度重新撒布得分点（避开模型起终点，带尝试次数上限）",
+    "symbol" : "generate"
+  }, {
+    "id" : "generator_generate_end",
+    "line" : 74,
+    "desc" : "",
+    "symbol" : "dfs"
+  }, {
+    "id" : "generator_dfs",
+    "line" : 76,
+    "desc" : "随机回溯（显式栈）：帧内保存\"当前格 + 已打乱方向表 + 下一待试下标\"，深度不受调用栈限制",
+    "symbol" : "dfs"
+  }, {
+    "id" : "generator_dfs_end",
+    "line" : 130,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeHitTester.java" : [ {
+    "id" : "maze_hit_tester_intro",
+    "line" : 1,
+    "desc" : "鼠标命中检测（无状态）：把画布像素坐标折算成\"命中的墙壁段\"或\"命中的单元格\"，供视图记录悬停目标。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "hit_types",
+    "line" : 14,
+    "desc" : "命中结果：墙壁用\"行列 + 方向\"表达（dir 取 MazeModel 的四向常量），单元格只用行列；未命中统一用 null",
+    "symbol" : "findWall"
+  }, {
+    "id" : "hit_types_end",
+    "line" : 23,
+    "desc" : "",
+    "symbol" : "findWall"
+  }, {
+    "id" : "hit_find_wall",
+    "line" : 25,
+    "desc" : "墙壁命中：每段物理墙只认一个\"规范侧\"（北侧 / 西侧 / 末行南侧 / 末列东侧），内部墙与外边界墙都按此去重",
+    "symbol" : "findWall"
+  }, {
+    "id" : "hit_find_wall_end",
+    "line" : 64,
+    "desc" : "",
+    "symbol" : "findCell"
+  }, {
+    "id" : "hit_find_cell",
+    "line" : 66,
+    "desc" : "单元格命中：像素坐标直接整除单元格尺寸得到行列，越界返回 null",
+    "symbol" : "findCell"
+  }, {
+    "id" : "hit_find_cell_end",
+    "line" : 75,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeIO.java" : [ {
+    "id" : "io_intro",
+    "line" : 1,
+    "desc" : "盘面文本文件的读写：格式只在本类定义，模型 / 求解器 / 界面都不直接拼文件内容。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "io_board_format",
+    "line" : 25,
+    "desc" : "盘面格式：size/start/end 头 + walls 段（每格一位十六进制掩码）+ scores 段（1~9 为得分点标记，. 无）；",
+    "symbol" : "<init>"
+  }, {
+    "id" : "io_board_format_end",
+    "line" : 35,
+    "desc" : "",
+    "symbol" : "saveBoard"
+  }, {
+    "id" : "io_save_board",
+    "line" : 37,
+    "desc" : "保存：头部写尺寸与起终点，随后按行写墙壁掩码与得分点标记数字，逐格无损落盘",
+    "symbol" : "saveBoard"
+  }, {
+    "id" : "io_save_board_end",
+    "line" : 78,
+    "desc" : "",
+    "symbol" : "loadBoard"
+  }, {
+    "id" : "io_load_board",
+    "line" : 80,
+    "desc" : "载入：先解析出头字段与两段矩阵文本，再交给 buildModel 统一校验并还原",
+    "symbol" : "loadBoard"
+  }, {
+    "id" : "io_load_board_end",
+    "line" : 139,
+    "desc" : "",
+    "symbol" : "buildModel"
+  }, {
+    "id" : "io_build_model",
+    "line" : 141,
+    "desc" : "校验并还原：尺寸区间、行数/列数、掩码与得分点字符都要合法，任一处不符即报错而不产出半成品",
+    "symbol" : "buildModel"
+  }, {
+    "id" : "io_build_model_end",
+    "line" : 207,
+    "desc" : "",
+    "symbol" : "normalizeInternalWalls"
+  }, {
+    "id" : "io_normalize_walls",
+    "line" : 209,
+    "desc" : "内部墙双向归并：文件里可能只写了某一侧（相邻两格掩码不一致），归并成\"任一侧有墙即两侧都有\"，",
+    "symbol" : "normalizeInternalWalls"
+  }, {
+    "id" : "io_normalize_walls_end",
+    "line" : 231,
+    "desc" : "",
+    "symbol" : "readLines"
+  }, {
+    "id" : "io_helpers",
+    "line" : 234,
+    "desc" : "底层读写工具：UTF-8 纯文本按行读取 + 整数字段解析（错误信息带上原行，便于定位手工改坏的地方）",
+    "symbol" : "readLines"
+  }, {
+    "id" : "io_helpers_end",
+    "line" : 261,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeModel.java" : [ {
+    "id" : "model_intro",
+    "line" : 1,
+    "desc" : "迷宫数据模型：4 位掩码存墙壁 + 整数矩阵存得分点标记数字（0=无，1~9=标记），纯数据类，不含算法与 UI。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "model_wall_const",
+    "line" : 12,
+    "desc" : "四向墙壁位掩码（全墙壁 = 15）、迷宫边长合法区间与墙壁矩阵",
+    "symbol" : "<init>"
+  }, {
+    "id" : "model_wall_const_end",
+    "line" : 27,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "model_constructor",
+    "line" : 29,
+    "desc" : "行列在构造期固定；构造完成即处于\"全墙壁 + 得分点就绪 + 起终点在左上/右下角\"的初始态",
+    "symbol" : "<init>"
+  }, {
+    "id" : "model_constructor_end",
+    "line" : 40,
+    "desc" : "",
+    "symbol" : "resetWalls"
+  }, {
+    "id" : "model_reset_walls",
+    "line" : 42,
+    "desc" : "重置为全墙壁（未打通）状态",
+    "symbol" : "resetWalls"
+  }, {
+    "id" : "model_reset_walls_end",
+    "line" : 52,
+    "desc" : "",
+    "symbol" : "getRows"
+  }, {
+    "id" : "model_wall_query",
+    "line" : 57,
+    "desc" : "单格单方向的墙壁查询与增删；越界视为有墙，调用方无需额外判空",
+    "symbol" : "hasWall"
+  }, {
+    "id" : "model_wall_query_end",
+    "line" : 87,
+    "desc" : "",
+    "symbol" : "clearInternalWalls"
+  }, {
+    "id" : "model_clear_internal_walls",
+    "line" : 89,
+    "desc" : "只拆相邻格之间的墙壁，外边界保持封闭",
+    "symbol" : "clearInternalWalls"
+  }, {
+    "id" : "model_clear_internal_walls_end",
+    "line" : 108,
+    "desc" : "",
+    "symbol" : "removeWallBetween"
+  }, {
+    "id" : "model_wall_between",
+    "line" : 110,
+    "desc" : "相邻两格之间的墙壁操作：打通 / 加墙 / 切换，一律双向同步；外边界不会被打开",
+    "symbol" : "removeWallBetween"
+  }, {
+    "id" : "model_wall_between_end",
+    "line" : 175,
+    "desc" : "",
+    "symbol" : "setWallSide"
+  }, {
+    "id" : "model_border_side",
+    "line" : 177,
+    "desc" : "单侧墙壁操作：内部侧双向同步（等价 addWallBetween），外边界侧没有相邻格可同步，只改本格一面",
+    "symbol" : "setWallSide"
+  }, {
+    "id" : "model_border_side_end",
+    "line" : 199,
+    "desc" : "",
+    "symbol" : "getStartR"
+  }, {
+    "id" : "model_endpoints",
+    "line" : 202,
+    "desc" : "起终点坐标：默认左上角与右下角，可改到范围内任意格；不允许重合，所在格不保留得分点",
+    "symbol" : "getStartR"
+  }, {
+    "id" : "model_endpoints_end",
+    "line" : 263,
+    "desc" : "",
+    "symbol" : "initScorePoints"
+  }, {
+    "id" : "model_score_points",
+    "line" : 266,
+    "desc" : "得分点即\"标记数字\"：0 = 无得分点，1~9 = 该得分点的标记（不同得分点可重复）；起终点恒不参与计分",
+    "symbol" : "initScorePoints"
+  }, {
+    "id" : "model_score_points_end",
+    "line" : 339,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeOverlay.java" : [ {
+    "id" : "maze_overlay_intro",
+    "line" : 1,
+    "desc" : "抽样叠画数据：把抽样路径按\"每段物理线只描一次\"去重并预折算成像素线段，分桶存好，重绘时只描线、零计算。",
+    "symbol" : "setPaths"
+  }, {
+    "id" : "overlay_state",
+    "line" : 16,
+    "desc" : "数据状态：按调色板分桶的线段（每段 {x1,y1,x2,y2}）+ 参与叠画的路径条数与线段总数；buckets 为 null 表示无叠画",
+    "symbol" : "setPaths"
+  }, {
+    "id" : "overlay_state_end",
+    "line" : 21,
+    "desc" : "",
+    "symbol" : "setPaths"
+  }, {
+    "id" : "overlay_build",
+    "line" : 23,
+    "desc" : "建立叠画：抽样路径大量重叠（起终点附近几乎完全重合），同一段线只描一次，描线数量直接降一个量级",
+    "symbol" : "setPaths"
+  }, {
+    "id" : "overlay_build_end",
+    "line" : 66,
+    "desc" : "",
+    "symbol" : "isEmpty"
+  }, {
+    "id" : "overlay_accessors",
+    "line" : 68,
+    "desc" : "当前是否有可描线的叠画",
+    "symbol" : "isEmpty"
+  }, {
+    "id" : "overlay_accessors_end",
+    "line" : 88,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeRenderer.java" : [ {
+    "id" : "maze_renderer_intro",
+    "line" : 1,
+    "desc" : "纯绘制：把\"一帧的绘制输入\"（解法路径、叠画、悬停目标、编辑模式）按固定层次画到画布上，不持有任何交互状态。",
+    "symbol" : "draw"
+  }, {
+    "id" : "render_frame",
+    "line" : 20,
+    "desc" : "一帧的绘制输入：解法路径、叠画线段、悬停目标、编辑模式与当前标记数字；由视图在每次重绘前填入",
+    "symbol" : "draw"
+  }, {
+    "id" : "render_frame_end",
+    "line" : 35,
+    "desc" : "",
+    "symbol" : "draw"
+  }, {
+    "id" : "render_draw",
+    "line" : 37,
+    "desc" : "绘制入口：清屏后按固定层次叠画，顺序决定\"谁盖住谁\"",
+    "symbol" : "draw"
+  }, {
+    "id" : "render_draw_end",
+    "line" : 48,
+    "desc" : "",
+    "symbol" : "drawMaze"
+  }, {
+    "id" : "render_maze",
+    "line" : 50,
+    "desc" : "底图：白底 + 绿起红终（坐标取自模型，可在任意格）+ 逐格描边四向墙壁",
+    "symbol" : "drawMaze"
+  }, {
+    "id" : "render_maze_end",
+    "line" : 90,
+    "desc" : "",
+    "symbol" : "drawScorePoints"
+  }, {
+    "id" : "render_scores",
+    "line" : 92,
+    "desc" : "得分点：金色实心圆 + 圆内的标记数字，半径与字号随单元格尺寸缩放（格子太小时只画圆不写字）",
+    "symbol" : "drawScorePoints"
+  }, {
+    "id" : "render_scores_end",
+    "line" : 126,
+    "desc" : "",
+    "symbol" : "drawHover"
+  }, {
+    "id" : "render_hover",
+    "line" : 128,
+    "desc" : "悬停高亮：按当前编辑模式三选一，墙壁用橙色线段、得分点用金/红方框、起终点用绿/红方框",
+    "symbol" : "drawHover"
+  }, {
+    "id" : "render_hover_end",
+    "line" : 200,
+    "desc" : "",
+    "symbol" : "drawOverlay"
+  }, {
+    "id" : "render_overlay",
+    "line" : 202,
+    "desc" : "抽样叠画：只做描线——线段已去重、坐标已预折算，重绘开销与枚举总条数无关",
+    "symbol" : "drawOverlay"
+  }, {
+    "id" : "render_overlay_end",
+    "line" : 222,
+    "desc" : "",
+    "symbol" : "drawPath"
+  }, {
+    "id" : "render_path",
+    "line" : 224,
+    "desc" : "主解法：蓝色折线连接各格中心，线宽随单元格尺寸自适应，画在最上层",
+    "symbol" : "drawPath"
+  }, {
+    "id" : "render_path_end",
+    "line" : 241,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeSolver.java" : [ {
+    "id" : "solver_intro",
+    "line" : 1,
+    "desc" : "迷宫求解器：BFS 求最短路，按上限 DFS 回溯枚举全部简单路径，并提供抽样取条、得分统计、标记数字串与路径文件输出。",
+    "symbol" : "getLastEnumerationLimit"
+  }, {
+    "id" : "solver_fields",
+    "line" : 17,
+    "desc" : "两套等价方向表：DIRECTIONS 用于墙壁位掩码判定，DIRS_ENCODED 附带对外方向编码 0~3",
+    "symbol" : "getLastEnumerationLimit"
+  }, {
+    "id" : "solver_fields_end",
+    "line" : 38,
+    "desc" : "",
+    "symbol" : "getLastEnumerationLimit"
+  }, {
+    "id" : "solver_enum_limit",
+    "line" : 40,
+    "desc" : "枚举上限：maxPaths 是唯一闸门；默认值与合法区间在此定义，\"是否被截断\"供界面提示",
+    "symbol" : "getLastEnumerationLimit"
+  }, {
+    "id" : "solver_enum_limit_end",
+    "line" : 56,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "solver_bfs",
+    "line" : 65,
+    "desc" : "BFS 最短路：从模型起点逐层扩展，命中模型终点即用 prev 前驱表回溯重建坐标序列",
+    "symbol" : "solve"
+  }, {
+    "id" : "solver_bfs_end",
+    "line" : 131,
+    "desc" : "",
+    "symbol" : "findAllPaths"
+  }, {
+    "id" : "solver_all_paths",
+    "line" : 133,
+    "desc" : "DFS 回溯枚举所有不重复经过同一格的路径（显式栈，深度不受调用栈限制），对外用 0~3 方向编码表达；起终点取自模型",
+    "symbol" : "findAllPaths"
+  }, {
+    "id" : "solver_all_paths_end",
+    "line" : 218,
+    "desc" : "",
+    "symbol" : "sampleIndices"
+  }, {
+    "id" : "solver_sample",
+    "line" : 220,
+    "desc" : "抽样取条：枚举结果可能成千上万条，前端只叠画其中若干条；等间隔确定性取点（不用随机），重绘时不会跳动",
+    "symbol" : "sampleIndices"
+  }, {
+    "id" : "solver_sample_end",
+    "line" : 261,
+    "desc" : "",
+    "symbol" : "dirCodesToCoordinates"
+  }, {
+    "id" : "solver_dir_to_coords",
+    "line" : 264,
+    "desc" : "方向编码 → 坐标序列（从模型起点起算），供视图绘制与列表选中时的路径切换",
+    "symbol" : "dirCodesToCoordinates"
+  }, {
+    "id" : "solver_dir_to_coords_end",
+    "line" : 287,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "solver_path_stats",
+    "line" : 289,
+    "desc" : "一次遍历同时得出分数与数字串：列表、结果文件、筛选共用同一份结果，避免同一条路径被走多遍",
+    "symbol" : "<init>"
+  }, {
+    "id" : "solver_path_stats_end",
+    "line" : 351,
+    "desc" : "",
+    "symbol" : "computePathScore"
+  }, {
+    "id" : "solver_path_score",
+    "line" : 354,
+    "desc" : "得分统计：复用 analyzePath 的单次遍历结果，保证\"分数\"与\"数字串\"永远出自同一口径",
+    "symbol" : "computePathScore"
+  }, {
+    "id" : "solver_path_score_end",
+    "line" : 361,
+    "desc" : "",
+    "symbol" : "savePathsToFile"
+  }, {
+    "id" : "solver_save_paths",
+    "line" : 363,
+    "desc" : "文件输出：头部记录本次枚举上下文（尺寸/起终点/上限/是否达上限/条数），其后每行一条路径含分数与数字串",
+    "symbol" : "savePathsToFile"
+  }, {
+    "id" : "solver_save_paths_end",
+    "line" : 409,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeTheme.java" : [ {
+    "id" : "maze_theme_intro",
+    "line" : 1,
+    "desc" : "视图层的视觉常量与等比换算：单元格尺寸分档表、叠画调色板、线宽/半径/字号/命中阈值，全部随 cellSize 缩放。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "theme_cell_size",
+    "line" : 16,
+    "desc" : "单元格尺寸查表：边长分档 → 像素，档位越大格子越小；超出最高档用最小像素兜底",
+    "symbol" : "cellSizeFor"
+  }, {
+    "id" : "theme_cell_size_end",
+    "line" : 32,
+    "desc" : "",
+    "symbol" : "overlayBucketCount"
+  }, {
+    "id" : "theme_palette",
+    "line" : 34,
+    "desc" : "叠画调色板：半透明细线，按抽样顺序分桶着色，避免盖住墙壁与当前选中的主解法",
+    "symbol" : "overlayBucketCount"
+  }, {
+    "id" : "theme_palette_end",
+    "line" : 51,
+    "desc" : "",
+    "symbol" : "wallLineWidth"
+  }, {
+    "id" : "theme_metrics",
+    "line" : 53,
+    "desc" : "随单元格尺寸缩放的绘制度量：线宽、得分点半径与字号、墙壁命中阈值",
+    "symbol" : "wallLineWidth"
+  }, {
+    "id" : "theme_metrics_end",
+    "line" : 94,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/MazeView.java" : [ {
+    "id" : "view_intro",
+    "line" : 1,
+    "desc" : "迷宫视图：Canvas 生命周期 + 编辑模式开关 + 鼠标事件，把绘制交给 MazeRenderer、命中交给 MazeHitTester、编辑交给 MazeEditor。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "view_pick_mode",
+    "line" : 17,
+    "desc" : "起终点拾取模式常量：真值在 MazeEditor，这里保留视图侧别名，避免调用方依赖编辑实现类",
+    "symbol" : "<init>"
+  }, {
+    "id" : "view_pick_mode_end",
+    "line" : 25,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "view_state_fields",
+    "line" : 27,
+    "desc" : "视图状态：模型 / 画布与画笔 / 单元格尺寸 / 三个协作者 / 悬停目标 / 编辑模式与当前标记数字",
+    "symbol" : "<init>"
+  }, {
+    "id" : "view_state_fields_end",
+    "line" : 59,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "view_constructor",
+    "line" : 61,
+    "desc" : "构造即按模型尺寸算好单元格尺寸并建画布，保证首帧可直接绘制",
+    "symbol" : "<init>"
+  }, {
+    "id" : "view_constructor_end",
+    "line" : 75,
+    "desc" : "",
+    "symbol" : "rebuildCanvas"
+  }, {
+    "id" : "view_rebuild_canvas",
+    "line" : 77,
+    "desc" : "形状变更时重建画布：尺寸变化后必须重新绑定鼠标事件并作废旧叠画坐标",
+    "symbol" : "rebuildCanvas"
+  }, {
+    "id" : "view_rebuild_canvas_end",
+    "line" : 87,
+    "desc" : "",
+    "symbol" : "setModel"
+  }, {
+    "id" : "view_accessors",
+    "line" : 89,
+    "desc" : "模型 / 路径 / 回调注入：供主界面在重建模型、切换列表选中项、编辑后清理列表时调用",
+    "symbol" : "setModel"
+  }, {
+    "id" : "view_accessors_end",
+    "line" : 114,
+    "desc" : "",
+    "symbol" : "setOverlayPaths"
+  }, {
+    "id" : "view_overlay_api",
+    "line" : 116,
+    "desc" : "叠画接口：路径的坐标化与线段去重都在 MazeOverlay 内完成，视图只转发",
+    "symbol" : "setOverlayPaths"
+  }, {
+    "id" : "view_overlay_api_end",
+    "line" : 137,
+    "desc" : "",
+    "symbol" : "setWallEditMode"
+  }, {
+    "id" : "view_set_edit_mode",
+    "line" : 139,
+    "desc" : "编辑模式开关：退出编辑时清空长按锁定；任一编辑模式开启时光标即为十字",
+    "symbol" : "setWallEditMode"
+  }, {
+    "id" : "view_set_edit_mode_end",
+    "line" : 191,
+    "desc" : "",
+    "symbol" : "draw"
+  }, {
+    "id" : "view_draw",
+    "line" : 193,
+    "desc" : "重绘：先把视图状态同步进单帧绘制快照，再交给渲染器按固定层次绘制",
+    "symbol" : "draw"
+  }, {
+    "id" : "view_draw_end",
+    "line" : 209,
+    "desc" : "",
+    "symbol" : "setupMouseEvents"
+  }, {
+    "id" : "view_mouse_events",
+    "line" : 211,
+    "desc" : "鼠标交互：移动只刷新悬停；按下锁定方向并交给编辑分发，拖拽沿锁定方向连续生效；起终点只在按下时拾取一次",
+    "symbol" : "setupMouseEvents"
+  }, {
+    "id" : "view_mouse_events_end",
+    "line" : 262,
+    "desc" : "",
+    "symbol" : "findWall"
+  }, {
+    "id" : "view_hit",
+    "line" : 264,
+    "desc" : "命中检测薄壳：结果写进视图的悬停字段，几何判定本身在 MazeHitTester 里（含外边界四侧）",
+    "symbol" : "findWall"
+  }, {
+    "id" : "view_hit_end",
+    "line" : 301,
+    "desc" : "",
+    "symbol" : "dispatchWallEdit"
+  }, {
+    "id" : "view_edit_dispatch",
+    "line" : 303,
+    "desc" : "编辑分发：把\"当前悬停目标 + 当前模式\"翻译成一次 MazeEditor 调用，按下与拖拽共用同一入口；",
+    "symbol" : "dispatchWallEdit"
+  }, {
+    "id" : "view_edit_dispatch_end",
+    "line" : 333,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/PathListPanel.java" : [ {
+    "id" : "path_list_panel_intro",
+    "line" : 1,
+    "desc" : "右侧路径列表面板：过滤条件（步数/分数/序列表达式）、排序方式、叠画设置、列表与统计行，自包含全部列表数据流。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_sort_mode",
+    "line" : 32,
+    "desc" : "排序方式文案（同时就是下拉框的取值）：只改展示顺序，源数据顺序与\"路径 N\"编号都不动",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_sort_mode_end",
+    "line" : 40,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_state",
+    "line" : 42,
+    "desc" : "面板状态：源数据引用、过滤索引映射、控件引用与三个对外回调",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_state_end",
+    "line" : 71,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_constructor",
+    "line" : 73,
+    "desc" : "构造即完成布局：标题 / 过滤区 / 排序 / 叠画设置 / 列表 / 统计行，列表高度随窗口伸缩",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_constructor_end",
+    "line" : 100,
+    "desc" : "",
+    "symbol" : "buildFilterBox"
+  }, {
+    "id" : "list_filter_ui",
+    "line" : 102,
+    "desc" : "过滤条件输入区：步数范围 + 分数范围 + 序列条件，全部允许留空；表达式语法提示紧随其后",
+    "symbol" : "buildFilterBox"
+  }, {
+    "id" : "list_filter_ui_end",
+    "line" : 192,
+    "desc" : "",
+    "symbol" : "buildSampleBox"
+  }, {
+    "id" : "list_sample_ui",
+    "line" : 194,
+    "desc" : "叠画设置区：条数输入 + 开关 + 状态行；面板只报告\"用户想要什么\"，实际叠画由主界面驱动视图",
+    "symbol" : "buildSampleBox"
+  }, {
+    "id" : "list_sample_ui_end",
+    "line" : 219,
+    "desc" : "",
+    "symbol" : "createListView"
+  }, {
+    "id" : "list_view",
+    "line" : 221,
+    "desc" : "列表本体与统计行：选中项先经 filter 映射回真实下标再回调，展示行与映射表永远同序",
+    "symbol" : "createListView"
+  }, {
+    "id" : "list_view_end",
+    "line" : 242,
+    "desc" : "",
+    "symbol" : "setOnPathSelected"
+  }, {
+    "id" : "list_api",
+    "line" : 244,
+    "desc" : "对外接口：设置源数据 / 重填 / 清空 / 取叠画设置 / 注册回调——主界面不碰面板内部控件",
+    "symbol" : "setOnPathSelected"
+  }, {
+    "id" : "list_api_end",
+    "line" : 296,
+    "desc" : "",
+    "symbol" : "populatePathList"
+  }, {
+    "id" : "list_populate_all",
+    "line" : 298,
+    "desc" : "全量填充：收集行（步数/分数/数字串一次算好）→ 按当前排序方式重排 → 一次填表",
+    "symbol" : "populatePathList"
+  }, {
+    "id" : "list_populate_all_end",
+    "line" : 329,
+    "desc" : "",
+    "symbol" : "applyFilterAndPopulate"
+  }, {
+    "id" : "list_populate_filtered",
+    "line" : 331,
+    "desc" : "过滤填充：先编译序列条件（写错当场提示、不动列表），再按步数/分数/数字串筛选并排序",
+    "symbol" : "applyFilterAndPopulate"
+  }, {
+    "id" : "list_populate_filtered_end",
+    "line" : 403,
+    "desc" : "",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_row",
+    "line" : 405,
+    "desc" : "行构造与排序：一行 = 真实下标 + 步数 + 分数 + 数字串；同长度按真实下标升序，保证重排结果稳定",
+    "symbol" : "<init>"
+  }, {
+    "id" : "list_row_end",
+    "line" : 454,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/PathSequenceFilter.java" : [ {
+    "id" : "filter_intro",
+    "line" : 1,
+    "desc" : "数字串筛选表达式：把用户写的条件式解析成若干\"对数字串求值\"的判断，供路径列表按得分点标记序列过滤。",
+    "symbol" : "<init>"
+  }, {
+    "id" : "filter_grammar",
+    "line" : 27,
+    "desc" : "表达式的词法约定集中在此：条件分隔符、先后关系符、子串引号与数字取值区间",
+    "symbol" : "<init>"
+  }, {
+    "id" : "filter_grammar_end",
+    "line" : 51,
+    "desc" : "",
+    "symbol" : "parse"
+  }, {
+    "id" : "filter_parse",
+    "line" : 53,
+    "desc" : "解析：空表达式 = 不筛选；否则按 & 切分、逐个解析，任何一处不合法都抛 IllegalArgumentException 供界面提示",
+    "symbol" : "parse"
+  }, {
+    "id" : "filter_parse_end",
+    "line" : 175,
+    "desc" : "",
+    "symbol" : "matches"
+  }, {
+    "id" : "filter_match",
+    "line" : 177,
+    "desc" : "求值：全部条件都命中才算命中；不筛选（空表达式）时恒为 true",
+    "symbol" : "matches"
+  }, {
+    "id" : "filter_match_end",
+    "line" : 216,
+    "desc" : ""
+  } ],
+  "src/main/java/com/mazesolver/UiHint.java" : [ {
+    "id" : "ui_hint_intro",
+    "line" : 1,
+    "desc" : "提示标签的统一着色：成功/普通/错误三级文字色集中在此，避免每个面板各写一套内联样式。",
+    "symbol" : "show"
+  }, {
+    "id" : "ui_hint_colors",
+    "line" : 13,
+    "desc" : "三级配色：成功绿、普通灰、错误红；界面上所有提示标签都取这几种，不再各写内联色值",
+    "symbol" : "show"
+  }, {
+    "id" : "ui_hint_colors_end",
+    "line" : 23,
+    "desc" : "",
+    "symbol" : "show"
+  }, {
+    "id" : "ui_hint_show",
+    "line" : 25,
+    "desc" : "写入文案并同步配色：error=true 一律红字，否则用调用方指定的普通色",
+    "symbol" : "show"
+  }, {
+    "id" : "ui_hint_show_end",
+    "line" : 40,
+    "desc" : "",
+    "symbol" : "<init>"
+  } ],
+  "tmp/check_ui_wiring.py" : [ {
+    "id" : "check_ui_wiring_intro",
+    "line" : 1,
+    "desc" : "静态自检：扫描 MazeApp / MazeControlPanel / PathListPanel 三个界面源文件，确保",
+    "symbol" : "read"
+  } ],
+  "tmp/enum_incremental_plan.md" : [ {
+    "id" : "enum_plan_intro",
+    "line" : 1,
+    "desc" : "增量枚举可行性评估：现状事实、结论、推荐方案、改造清单、风险与决策点。本文件仅为规划，未改动任何代码。"
+  }, {
+    "id" : "enum_plan_end",
+    "line" : 96,
+    "desc" : "末尾锚点：新的评估补充记录插入此锚点之前"
+  } ],
+  "tmp/make_run_bat.py" : [ {
+    "id" : "mkrun_intro",
+    "line" : 1,
+    "desc" : "生成脚本：以「纯 ASCII 文本 + CRLF 行尾」重写项目根目录的 run.bat，",
+    "symbol" : "write_bat"
+  }, {
+    "id" : "mkrun_content",
+    "line" : 6,
+    "desc" : "run.bat 的正文：全部英文 + 单字节字符，结构与原脚本一致（run/compile/clean/help 四模式）",
+    "symbol" : "write_bat"
+  }, {
+    "id" : "mkrun_write",
+    "line" : 143,
+    "desc" : "写出 run.bat（CRLF）并自检：无 CR 缺失行、无 BOM、无非 ASCII 字节",
+    "symbol" : "write_bat"
+  }, {
+    "id" : "mkrun_verify",
+    "line" : 152,
+    "desc" : "逐项校验文件字节：ASCII / 无 BOM / 行行以 CRLF 结尾 / 无孤立 LF / 标签与跳转一一对应",
+    "symbol" : "verify"
+  }, {
+    "id" : "mkrun_main",
+    "line" : 187,
+    "desc" : "入口：生成 -> 自检 -> 打印结论与文件头若干行",
+    "symbol" : "main"
+  } ],
+  "tmp/SmokeDigits.java" : [ {
+    "id" : "smoke_digits_intro",
+    "line" : 1,
+    "desc" : "临时校验脚本：验证\"得分点标记数字 + 路径数字串 + 数字串条件筛选\"整条链路（模型/求解器/筛选器/文件）。",
+    "symbol" : "check"
+  } ],
+  "tmp/SmokeEndpoints.java" : [ {
+    "id" : "smoke_endpoints_intro",
+    "line" : 1,
+    "desc" : "临时校验脚本：反射加载 tmp/target/classes，专测\"起点/终点可在范围内任选\"（模型设定与校验、求解器跟随、拾取执行、生成避开起终点）。",
+    "symbol" : "check"
+  } ],
+  "tmp/SmokeImport.java" : [ {
+    "id" : "smoke_import_intro",
+    "line" : 1,
+    "desc" : "临时校验脚本：专测\"盘面导入\"——maps/ 下的示例盘面能正常载入、以 '#' 开头的得分点行不被当注释、",
+    "symbol" : "check"
+  } ],
+  "tmp/SmokeIo.java" : [ {
+    "id" : "smoke_io_intro",
+    "line" : 1,
+    "desc" : "临时校验脚本：验证盘面保存/载入往返一致、非法文件被拒、枚举上限闸门与结果文件的上下文头部。",
+    "symbol" : "check"
+  }, {
+    "id" : "smoke_io_result_file",
+    "line" : 192,
+    "desc" : "结果文件：上下文头部 + 每行一条路径（行内顺序为 步数、分数、序列）",
+    "symbol" : "main"
+  }, {
+    "id" : "smoke_io_result_file_end",
+    "line" : 213,
+    "desc" : "",
+    "symbol" : "main"
+  } ],
+  "tmp/SmokeReflect.java" : [ {
+    "id" : "smoke_reflect_intro",
+    "line" : 1,
+    "desc" : "临时校验脚本：反射加载 tmp/target/classes 下的模型/生成器/求解器/视图/命中检测/编辑执行，做无界面端到端自测（多档尺寸、边界编辑、改墙生效）。",
+    "symbol" : "findClasses"
+  } ],
+  "tmp/SmokeSample.java" : [ {
+    "id" : "smoke_sample_intro",
+    "line" : 1,
+    "desc" : "临时校验脚本：反射加载 tmp/target/classes，验证\"抽样叠画\"——抽样取点的确定性/去重/边界，以及视图叠画的条数、线段去重与撤销。",
+    "symbol" : "check"
+  } ],
+  "UPDATE.md" : [ {
+    "id" : "update_intro",
+    "line" : 1,
+    "desc" : "maze-solver 更新记录：历史条目按 log_NNN 顺序保留原文，新记录统一插入末尾追加锚点之前"
+  }, {
+    "id" : "log_001",
+    "line" : 6,
+    "desc" : "# v1.0.0 - 初始版本 (2026-01-18)"
+  }, {
+    "id" : "log_001_end",
+    "line" : 15,
+    "desc" : ""
+  }, {
+    "id" : "log_002",
+    "line" : 17,
+    "desc" : "# v1.1.0 - 迷宫编辑功能 (2026-07-18)"
+  }, {
+    "id" : "log_002_end",
+    "line" : 26,
+    "desc" : ""
+  }, {
+    "id" : "log_003",
+    "line" : 28,
+    "desc" : "# v1.2.0 - 全路径枚举 (2026-07-18)"
+  }, {
+    "id" : "log_003_end",
+    "line" : 35,
+    "desc" : ""
+  }, {
+    "id" : "log_004",
+    "line" : 37,
+    "desc" : "# v1.3.0 - 滚动列表查询单个解法 (2026-07-18)"
+  }, {
+    "id" : "log_004_end",
+    "line" : 45,
+    "desc" : ""
+  }, {
+    "id" : "log_005",
+    "line" : 47,
+    "desc" : "# v1.4.0 - 得分点系统 (2026-07-18)"
+  }, {
+    "id" : "log_005_end",
+    "line" : 56,
+    "desc" : ""
+  }, {
+    "id" : "log_006",
+    "line" : 58,
+    "desc" : "# v1.5.0 - 得分点编辑功能 (2026-07-18)"
+  }, {
+    "id" : "log_006_end",
+    "line" : 67,
+    "desc" : ""
+  }, {
+    "id" : "log_007",
+    "line" : 69,
+    "desc" : "# v1.6.0 - 编辑按钮分离 + 清空按钮 (2026-07-18)"
+  }, {
+    "id" : "log_007_end",
+    "line" : 80,
+    "desc" : ""
+  }, {
+    "id" : "log_008",
+    "line" : 82,
+    "desc" : "# v1.7.0 - 长按连续修改 + 按参数搜索 (2026-07-18)"
+  }, {
+    "id" : "log_008_end",
+    "line" : 102,
+    "desc" : ""
+  }, {
+    "id" : "log_009",
+    "line" : 104,
+    "desc" : "# v1.8.0 - 迷宫形状可调整 (2026-07-26)"
+  }, {
+    "id" : "log_009_end",
+    "line" : 134,
+    "desc" : ""
+  }, {
+    "id" : "log_010",
+    "line" : 136,
+    "desc" : "# v1.8.1 - 修复形状调整后编辑功能失效 (2026-07-26)"
+  }, {
+    "id" : "log_010_end",
+    "line" : 153,
+    "desc" : ""
+  }, {
+    "id" : "log_011",
+    "line" : 155,
+    "desc" : "# v1.9.0 - 项目规整（锚点规范 / 文档瘦身 / 产物收敛）(2026-10-24)"
+  }, {
+    "id" : "log_011_end",
+    "line" : 184,
+    "desc" : ""
+  }, {
+    "id" : "log_012",
+    "line" : 186,
+    "desc" : "# v1.9.0 备注 - 产物隔离的落地方式 (2026-10-24)"
+  }, {
+    "id" : "log_012_end",
+    "line" : 191,
+    "desc" : ""
+  }, {
+    "id" : "log_013",
+    "line" : 194,
+    "desc" : "# 构建校验 - 仅编译主源码，不编译测试 (2026-10-24)"
+  }, {
+    "id" : "log_013_end",
+    "line" : 200,
+    "desc" : ""
+  }, {
+    "id" : "log_014",
+    "line" : 203,
+    "desc" : "# v1.10.0 - 修复编辑无效 + 迷宫尺寸范围放开 (2026-10-24)"
+  }, {
+    "id" : "log_014_end",
+    "line" : 233,
+    "desc" : ""
+  }, {
+    "id" : "log_015",
+    "line" : 235,
+    "desc" : "# v1.11.0 - 起点/终点可在迷宫范围内任选 (2026-10-24)"
+  }, {
+    "id" : "log_015_end",
+    "line" : 260,
+    "desc" : ""
+  }, {
+    "id" : "log_016",
+    "line" : 263,
+    "desc" : "# v1.12.0 - 起终点调整入口上页面（回显 + 复位） (2026-10-24)"
+  }, {
+    "id" : "log_016_end",
+    "line" : 290,
+    "desc" : ""
+  }, {
+    "id" : "log_017",
+    "line" : 293,
+    "desc" : "v1.13.0 - 枚举条数上限 + 盘面保存/载入 + 枚举结果文件化 (2026-10-24)"
+  }, {
+    "id" : "log_017_end",
+    "line" : 315,
+    "desc" : ""
+  }, {
+    "id" : "log_018",
+    "line" : 318,
+    "desc" : "v1.14.0 - 抽样叠画枚举路径 (2026-10-24)"
+  }, {
+    "id" : "log_018_end",
+    "line" : 341,
+    "desc" : ""
+  }, {
+    "id" : "log_019",
+    "line" : 344,
+    "desc" : "v1.15.0 - 修复盘面导入失败 + 长度排序 (2026-10-24)"
+  }, {
+    "id" : "log_019_end",
+    "line" : 363,
+    "desc" : ""
+  }, {
+    "id" : "log_020",
+    "line" : 366,
+    "desc" : "v1.16.0 - 一键构建脚本 run.bat + 构建校验 (2026-10-24)"
+  }, {
+    "id" : "log_020_end",
+    "line" : 382,
+    "desc" : ""
+  }, {
+    "id" : "log_021",
+    "line" : 385,
+    "desc" : "v1.16.0 备注 - `run.bat` 的注释形式与版本检查 (2026-10-24)"
+  }, {
+    "id" : "log_021_end",
+    "line" : 389,
+    "desc" : ""
+  }, {
+    "id" : "log_022",
+    "line" : 392,
+    "desc" : "v1.16.1 - 修复 run.bat 刷屏报错（`'mpile' 不是内部或外部命令`） (2026-10-24)"
+  }, {
+    "id" : "log_022_end",
+    "line" : 409,
+    "desc" : ""
+  }, {
+    "id" : "log_023",
+    "line" : 413,
+    "desc" : "v1.17.0 - 得分点标记数字 + 路径数字串 + 序列条件筛选 (2026-10-24)"
+  }, {
+    "id" : "log_023_end",
+    "line" : 439,
+    "desc" : ""
+  }, {
+    "id" : "log_024",
+    "line" : 470,
+    "desc" : "v1.18.0 评估 - 增量枚举（可续跑）可行性 (2026-10-24)"
+  }, {
+    "id" : "log_024_end",
+    "line" : 489,
+    "desc" : ""
+  }, {
+    "id" : "update_record_anchor",
+    "line" : 492,
+    "desc" : "[末尾锚点] 追加区：后续新记录统一插入本锚点之前，编号顺延 log_012"
+  } ]
+}

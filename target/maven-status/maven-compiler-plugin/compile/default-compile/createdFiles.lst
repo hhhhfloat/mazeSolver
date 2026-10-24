@@ -1,0 +1,5 @@
+com\mazesolver\MazeView.class
+com\mazesolver\MazeApp.class
+com\mazesolver\MazeModel.class
+com\mazesolver\MazeSolver.class
+com\mazesolver\MazeGenerator.class

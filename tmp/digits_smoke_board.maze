@@ -1,0 +1,17 @@
+# MazeSolver Board v1
+# 墙壁为 4 位掩码的十六进制值：1=NORTH 2=EAST 4=SOUTH 8=WEST；scores 段 1~9 为得分点的标记数字，. 表示无（# 等同 1）
+size 5 6
+start 0 0
+end 4 5
+walls
+ffffff
+ffffff
+ffffff
+ffffff
+ffffff
+scores
+......
+.4....
+...9..
+......
+......
