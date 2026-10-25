@@ -489,5 +489,32 @@
 # @anchor: log_024_end
 
 
+# @anchor: log_025
+# v1.19.0 第 1 步 - 增量枚举的求解器状态机化 (2026-10-25)
+
+按 D1~D4 决策动工，本轮只完成"准备工作"：拆分步骤（`TODO.md`）并落地求解器核心。
+
+## 决策固化
+- D1：输入框 = 目标累计条数；「+」按钮每次追加 `ENUM_INCREMENT` 条目标；「求解」先判断目标是否达成。
+- D2：目标调小不缩水、不重跑。
+- D3：内存用**实测平均步长的预算闸门**（优于固定上限、改动小于紧凑数组），`MAX_ENUM_LIMIT` 由 1e6 下调到 2e5。
+- D4：保持同步执行。
+
+## 求解器改动（`MazeSolver`）
+- 新增 `solver_incremental_state`：栈帧 / 访问标记 / 当前路径 / 已穷尽标志 / `resumeNeedsBacktrack` / 累计步数 / 盘面指纹 / 内存预算常量。
+- 新增 `solver_continue`：`continueFindAllPaths(目标总数)` 为唯一核心——指纹校验（不一致自动作废）→ 按需初始化现场 → 目标已达成直取 → 内存收敛 → 补正回溯 → 显式栈续跑 → 达目标挂起 / 栈空置穷尽。
+- 新增 `solver_reset`：`resetEnumeration`、`hasMorePaths`、`getCollectedPaths`、`getEstimatedMemoryBytes`。
+- `findAllPaths()` / `findAllPaths(int)` 保留签名，语义改为"续跑到目标总数"，旧调用点零改动。
+
+## 验证
+- `mvn compile` BUILD SUCCESS（17 源文件）。
+- 新增 `tmp/SmokeIncremental.java` 28 项全绿。其中最关键一项：9×9 全通盘面按 50 / 120 / 300 三段续跑，结果与一次跑满 300 条**逐条完全一致**；另有"每条路径不越界/不穿墙/不重格/落在终点"的结构校验，确认续跑没有污染 `currentPath`。
+- 回归：`SmokeIo` 18 / `SmokeReflect` 23 / `SmokeDigits` 47 / `SmokeSample` 20 / `SmokeEndpoints` 17 / `SmokeImport` 11 / `check_ui_wiring` 全绿（`SmokeIo` 的"上限 50 条截断"与"完美迷宫 1 条不截断"在新语义下保持不变）。
+
+## 状态
+第 2~5 步（列表行缓存 / 界面「+」按钮与状态文案 / 结果文件语义 / 文档收尾与全量回归）见 `TODO.md`。
+# @anchor: log_025_end
+
+
 <!-- @anchor: update_record_anchor -->
 <!-- [末尾锚点] 追加区：后续新记录统一插入本锚点之前，编号顺延 log_012 -->

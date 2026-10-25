@@ -30,31 +30,31 @@
     "preview" : "<!-- @anchor: project_architecture -->"
   }, {
     "id" : "project_architecture_end",
-    "line" : 36,
+    "line" : 42,
     "preview" : "<!-- @anchor: project_architecture_end -->"
   }, {
     "id" : "project_conventions",
-    "line" : 38,
+    "line" : 44,
     "preview" : "<!-- @anchor: project_conventions -->"
   }, {
     "id" : "project_conventions_end",
-    "line" : 56,
+    "line" : 63,
     "preview" : "<!-- @anchor: project_conventions_end -->"
   }, {
     "id" : "project_build",
-    "line" : 58,
+    "line" : 65,
     "preview" : "<!-- @anchor: project_build -->"
   }, {
     "id" : "project_build_end",
-    "line" : 76,
+    "line" : 83,
     "preview" : "<!-- @anchor: project_build_end -->"
   }, {
     "id" : "project_collaboration",
-    "line" : 78,
+    "line" : 85,
     "preview" : "<!-- @anchor: project_collaboration -->"
   }, {
     "id" : "project_collaboration_end",
-    "line" : 83,
+    "line" : 90,
     "preview" : "<!-- @anchor: project_collaboration_end -->"
   } ],
   "src/main/java/com/mazesolver/FileDialogs.java" : [ {
@@ -773,68 +773,92 @@
     "line" : 38,
     "preview" : "// @anchor: solver_fields_end"
   }, {
-    "id" : "solver_enum_limit",
+    "id" : "solver_incremental_state",
     "line" : 40,
+    "preview" : "// @anchor: solver_incremental_state"
+  }, {
+    "id" : "solver_incremental_state_end",
+    "line" : 67,
+    "preview" : "// @anchor: solver_incremental_state_end"
+  }, {
+    "id" : "solver_enum_limit",
+    "line" : 69,
     "preview" : "// @anchor: solver_enum_limit"
   }, {
     "id" : "solver_enum_limit_end",
-    "line" : 56,
+    "line" : 91,
     "preview" : "// @anchor: solver_enum_limit_end"
   }, {
     "id" : "solver_bfs",
-    "line" : 65,
+    "line" : 100,
     "preview" : "// @anchor: solver_bfs"
   }, {
     "id" : "solver_bfs_end",
-    "line" : 131,
+    "line" : 166,
     "preview" : "// @anchor: solver_bfs_end"
   }, {
     "id" : "solver_all_paths",
-    "line" : 133,
+    "line" : 168,
     "preview" : "// @anchor: solver_all_paths"
   }, {
     "id" : "solver_all_paths_end",
-    "line" : 218,
+    "line" : 199,
     "preview" : "// @anchor: solver_all_paths_end"
   }, {
+    "id" : "solver_continue",
+    "line" : 201,
+    "preview" : "// @anchor: solver_continue"
+  }, {
+    "id" : "solver_continue_end",
+    "line" : 354,
+    "preview" : "// @anchor: solver_continue_end"
+  }, {
+    "id" : "solver_reset",
+    "line" : 356,
+    "preview" : "// @anchor: solver_reset"
+  }, {
+    "id" : "solver_reset_end",
+    "line" : 386,
+    "preview" : "// @anchor: solver_reset_end"
+  }, {
     "id" : "solver_sample",
-    "line" : 220,
+    "line" : 389,
     "preview" : "// @anchor: solver_sample"
   }, {
     "id" : "solver_sample_end",
-    "line" : 261,
+    "line" : 430,
     "preview" : "// @anchor: solver_sample_end"
   }, {
     "id" : "solver_dir_to_coords",
-    "line" : 264,
+    "line" : 433,
     "preview" : "// @anchor: solver_dir_to_coords"
   }, {
     "id" : "solver_dir_to_coords_end",
-    "line" : 287,
+    "line" : 456,
     "preview" : "// @anchor: solver_dir_to_coords_end"
   }, {
     "id" : "solver_path_stats",
-    "line" : 289,
+    "line" : 458,
     "preview" : "// @anchor: solver_path_stats"
   }, {
     "id" : "solver_path_stats_end",
-    "line" : 351,
+    "line" : 520,
     "preview" : "// @anchor: solver_path_stats_end"
   }, {
     "id" : "solver_path_score",
-    "line" : 354,
+    "line" : 523,
     "preview" : "// @anchor: solver_path_score"
   }, {
     "id" : "solver_path_score_end",
-    "line" : 361,
+    "line" : 530,
     "preview" : "// @anchor: solver_path_score_end"
   }, {
     "id" : "solver_save_paths",
-    "line" : 363,
+    "line" : 532,
     "preview" : "// @anchor: solver_save_paths"
   }, {
     "id" : "solver_save_paths_end",
-    "line" : 409,
+    "line" : 578,
     "preview" : "// @anchor: solver_save_paths_end"
   } ],
   "src/main/java/com/mazesolver/MazeTheme.java" : [ {
@@ -1105,7 +1129,7 @@
     "preview" : "<!-- @anchor: enum_plan_intro -->"
   }, {
     "id" : "enum_plan_end",
-    "line" : 96,
+    "line" : 111,
     "preview" : "<!-- @anchor: enum_plan_end -->"
   } ],
   "tmp/make_run_bat.py" : [ {
@@ -1144,6 +1168,11 @@
     "line" : 1,
     "preview" : "// @anchor: smoke_import_intro"
   } ],
+  "tmp/SmokeIncremental.java" : [ {
+    "id" : "smoke_incremental_intro",
+    "line" : 1,
+    "preview" : "// @anchor: smoke_incremental_intro"
+  } ],
   "tmp/SmokeIo.java" : [ {
     "id" : "smoke_io_intro",
     "line" : 1,
@@ -1166,6 +1195,15 @@
     "id" : "smoke_sample_intro",
     "line" : 1,
     "preview" : "// @anchor: smoke_sample_intro"
+  } ],
+  "TODO.md" : [ {
+    "id" : "todo_intro",
+    "line" : 1,
+    "preview" : "<!-- @anchor: todo_intro -->"
+  }, {
+    "id" : "todo_end",
+    "line" : 21,
+    "preview" : "<!-- @anchor: todo_end -->"
   } ],
   "UPDATE.md" : [ {
     "id" : "update_intro",
@@ -1364,8 +1402,16 @@
     "line" : 489,
     "preview" : "# @anchor: log_024_end"
   }, {
-    "id" : "update_record_anchor",
+    "id" : "log_025",
     "line" : 492,
+    "preview" : "# @anchor: log_025"
+  }, {
+    "id" : "log_025_end",
+    "line" : 516,
+    "preview" : "# @anchor: log_025_end"
+  }, {
+    "id" : "update_record_anchor",
+    "line" : 519,
     "preview" : "<!-- @anchor: update_record_anchor -->"
   } ]
 }

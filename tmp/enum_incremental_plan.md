@@ -93,5 +93,20 @@
 4. 结果文件语义更新（仍全量重写，格式不改）+ 导出文案。
 5. `PROJECT.md` / `UPDATE.md` 收尾，跑全部自测（`SmokeReflect` / `SmokeEndpoints` / `SmokeIo` / `SmokeImport` / `SmokeSample` / `SmokeDigits` / `SmokeIncremental` / `check_ui_wiring`）。
 
+
+## 八、决策已定（用户确认）+ 实施进度
+
+| | 决策 | 落地方式 |
+|---|---|---|
+| D1 | 输入框 = **目标总条数** | 新增「+」按钮（每次按 `ENUM_INCREMENT` 追加目标并增量枚举）；「求解」先判断目标是否已达成，未达成才增量枚举 |
+| D2 | 目标调小**不缩水、不重跑** | `continueFindAllPaths` 发现已有条数 ≥ 目标直接返回同实例，并置 `truncated = true` |
+| D3 | 内存按**更优方案**：实测平均步长的预算闸门（非固定上限） | `memoryLimitedTarget(...)` + `ENUM_MEMORY_BUDGET_BYTES`；`MAX_ENUM_LIMIT` 由 1e6 下调到 2e5；`isLastEnumerationMemoryCapped()` 供界面提示。紧凑数组存储不采用：预算闸门已覆盖风险，且不必改动 8 处消费方 |
+| D4 | **同步执行**，不加后台线程 | 算法已是"可挂起"粒度，日后套线程无需改算法 |
+
+实施进度：
+- ✅ 第 1 步 `MazeSolver` 现场状态机化（`solver_incremental_state` / `solver_continue` / `solver_reset`），`tmp/SmokeIncremental.java` 28 项全绿：分段续跑与一次跑满**逐条完全一致**、无重复无遗漏、每条路径合法性、盘面变化自动从头、目标调小不缩水、内存闸门算式。
+- ⬜ 第 2~5 步见 `TODO.md`（列表行缓存 → 界面「+」按钮与状态文案 → 结果文件语义 → 文档收尾与全量回归）。
+
+
 <!-- @anchor: enum_plan_end -->
 <!-- 末尾锚点：新的评估补充记录插入此锚点之前 -->

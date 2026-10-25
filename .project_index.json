@@ -30,31 +30,31 @@
     "desc" : "# 架构决策"
   }, {
     "id" : "project_architecture_end",
-    "line" : 36,
+    "line" : 42,
     "desc" : ""
   }, {
     "id" : "project_conventions",
-    "line" : 38,
+    "line" : 44,
     "desc" : "跨文件约定：格式、区间、等价语义——改动时必须同步遵守的最小契约集合"
   }, {
     "id" : "project_conventions_end",
-    "line" : 56,
+    "line" : 63,
     "desc" : ""
   }, {
     "id" : "project_build",
-    "line" : 58,
+    "line" : 65,
     "desc" : "# 构建与运行"
   }, {
     "id" : "project_build_end",
-    "line" : 76,
+    "line" : 83,
     "desc" : ""
   }, {
     "id" : "project_collaboration",
-    "line" : 78,
+    "line" : 85,
     "desc" : "协作约定：锚点写法与文档维护规则"
   }, {
     "id" : "project_collaboration_end",
-    "line" : 83,
+    "line" : 90,
     "desc" : ""
   } ],
   "src/main/java/com/mazesolver/FileDialogs.java" : [ {
@@ -939,83 +939,113 @@
     "desc" : "",
     "symbol" : "getLastEnumerationLimit"
   }, {
-    "id" : "solver_enum_limit",
+    "id" : "solver_incremental_state",
     "line" : 40,
-    "desc" : "枚举上限：maxPaths 是唯一闸门；默认值与合法区间在此定义，\"是否被截断\"供界面提示",
+    "desc" : "增量枚举现场：搜索栈 / 访问标记 / 当前路径从局部变量提升为字段，随时可挂起与续跑；结果集合对外返回同一实例",
+    "symbol" : "getLastEnumerationLimit"
+  }, {
+    "id" : "solver_incremental_state_end",
+    "line" : 67,
+    "desc" : "",
+    "symbol" : "getLastEnumerationLimit"
+  }, {
+    "id" : "solver_enum_limit",
+    "line" : 69,
+    "desc" : "枚举上限：输入框表达\"目标总条数\"（增量语义）；默认值与合法区间在此定义，\"是否还有更多\"\"是否被内存预算拦下\"供界面提示",
     "symbol" : "getLastEnumerationLimit"
   }, {
     "id" : "solver_enum_limit_end",
-    "line" : 56,
+    "line" : 91,
     "desc" : "",
     "symbol" : "<init>"
   }, {
     "id" : "solver_bfs",
-    "line" : 65,
+    "line" : 100,
     "desc" : "BFS 最短路：从模型起点逐层扩展，命中模型终点即用 prev 前驱表回溯重建坐标序列",
     "symbol" : "solve"
   }, {
     "id" : "solver_bfs_end",
-    "line" : 131,
+    "line" : 166,
     "desc" : "",
     "symbol" : "findAllPaths"
   }, {
     "id" : "solver_all_paths",
-    "line" : 133,
-    "desc" : "DFS 回溯枚举所有不重复经过同一格的路径（显式栈，深度不受调用栈限制），对外用 0~3 方向编码表达；起终点取自模型",
+    "line" : 168,
+    "desc" : "枚举入口：语义统一为\"续跑到目标总条数\"——已有结果不丢弃、不从零重跑，同一盘面下第 k 条永远是同一条",
     "symbol" : "findAllPaths"
   }, {
     "id" : "solver_all_paths_end",
-    "line" : 218,
+    "line" : 199,
+    "desc" : "",
+    "symbol" : "continueFindAllPaths"
+  }, {
+    "id" : "solver_continue",
+    "line" : 201,
+    "desc" : "增量枚举核心：盘面指纹校验 → 按需初始化现场 / 补正回溯 → 显式栈 DFS 续跑，收录到目标总数或空间穷尽即停",
+    "symbol" : "continueFindAllPaths"
+  }, {
+    "id" : "solver_continue_end",
+    "line" : 354,
+    "desc" : "",
+    "symbol" : "resetEnumeration"
+  }, {
+    "id" : "solver_reset",
+    "line" : 356,
+    "desc" : "作废入口：盘面任何改动后都必须调用，否则旧现场会把旧盘面的结果接到新盘面后面",
+    "symbol" : "resetEnumeration"
+  }, {
+    "id" : "solver_reset_end",
+    "line" : 386,
     "desc" : "",
     "symbol" : "sampleIndices"
   }, {
     "id" : "solver_sample",
-    "line" : 220,
+    "line" : 389,
     "desc" : "抽样取条：枚举结果可能成千上万条，前端只叠画其中若干条；等间隔确定性取点（不用随机），重绘时不会跳动",
     "symbol" : "sampleIndices"
   }, {
     "id" : "solver_sample_end",
-    "line" : 261,
+    "line" : 430,
     "desc" : "",
     "symbol" : "dirCodesToCoordinates"
   }, {
     "id" : "solver_dir_to_coords",
-    "line" : 264,
+    "line" : 433,
     "desc" : "方向编码 → 坐标序列（从模型起点起算），供视图绘制与列表选中时的路径切换",
     "symbol" : "dirCodesToCoordinates"
   }, {
     "id" : "solver_dir_to_coords_end",
-    "line" : 287,
+    "line" : 456,
     "desc" : "",
     "symbol" : "<init>"
   }, {
     "id" : "solver_path_stats",
-    "line" : 289,
+    "line" : 458,
     "desc" : "一次遍历同时得出分数与数字串：列表、结果文件、筛选共用同一份结果，避免同一条路径被走多遍",
     "symbol" : "<init>"
   }, {
     "id" : "solver_path_stats_end",
-    "line" : 351,
+    "line" : 520,
     "desc" : "",
     "symbol" : "computePathScore"
   }, {
     "id" : "solver_path_score",
-    "line" : 354,
+    "line" : 523,
     "desc" : "得分统计：复用 analyzePath 的单次遍历结果，保证\"分数\"与\"数字串\"永远出自同一口径",
     "symbol" : "computePathScore"
   }, {
     "id" : "solver_path_score_end",
-    "line" : 361,
+    "line" : 530,
     "desc" : "",
     "symbol" : "savePathsToFile"
   }, {
     "id" : "solver_save_paths",
-    "line" : 363,
+    "line" : 532,
     "desc" : "文件输出：头部记录本次枚举上下文（尺寸/起终点/上限/是否达上限/条数），其后每行一条路径含分数与数字串",
     "symbol" : "savePathsToFile"
   }, {
     "id" : "solver_save_paths_end",
-    "line" : 409,
+    "line" : 578,
     "desc" : ""
   } ],
   "src/main/java/com/mazesolver/MazeTheme.java" : [ {
@@ -1346,7 +1376,7 @@
     "desc" : "增量枚举可行性评估：现状事实、结论、推荐方案、改造清单、风险与决策点。本文件仅为规划，未改动任何代码。"
   }, {
     "id" : "enum_plan_end",
-    "line" : 96,
+    "line" : 111,
     "desc" : "末尾锚点：新的评估补充记录插入此锚点之前"
   } ],
   "tmp/make_run_bat.py" : [ {
@@ -1393,6 +1423,12 @@
     "desc" : "临时校验脚本：专测\"盘面导入\"——maps/ 下的示例盘面能正常载入、以 '#' 开头的得分点行不被当注释、",
     "symbol" : "check"
   } ],
+  "tmp/SmokeIncremental.java" : [ {
+    "id" : "smoke_incremental_intro",
+    "line" : 1,
+    "desc" : "临时校验脚本：验证\"分多次续跑\"与\"一次跑满\"结果逐条一致、无重复无遗漏、盘面变化自动从头、目标调小不缩水、内存预算闸门生效。",
+    "symbol" : "check"
+  } ],
   "tmp/SmokeIo.java" : [ {
     "id" : "smoke_io_intro",
     "line" : 1,
@@ -1420,6 +1456,15 @@
     "line" : 1,
     "desc" : "临时校验脚本：反射加载 tmp/target/classes，验证\"抽样叠画\"——抽样取点的确定性/去重/边界，以及视图叠画的条数、线段去重与撤销。",
     "symbol" : "check"
+  } ],
+  "TODO.md" : [ {
+    "id" : "todo_intro",
+    "line" : 1,
+    "desc" : "本轮任务：把\"一次性枚举\"改造成\"可续跑的增量枚举\"，并按 D1/D2/D3/D4 的决策落地到界面。本文件仅记录步骤与进度。"
+  }, {
+    "id" : "todo_end",
+    "line" : 21,
+    "desc" : "末尾锚点：新的步骤条目插入此锚点之前"
   } ],
   "UPDATE.md" : [ {
     "id" : "update_intro",
@@ -1618,8 +1663,16 @@
     "line" : 489,
     "desc" : ""
   }, {
-    "id" : "update_record_anchor",
+    "id" : "log_025",
     "line" : 492,
+    "desc" : "v1.19.0 第 1 步 - 增量枚举的求解器状态机化 (2026-10-25)"
+  }, {
+    "id" : "log_025_end",
+    "line" : 516,
+    "desc" : ""
+  }, {
+    "id" : "update_record_anchor",
+    "line" : 519,
     "desc" : "[末尾锚点] 追加区：后续新记录统一插入本锚点之前，编号顺延 log_012"
   } ]
 }
